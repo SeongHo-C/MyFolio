@@ -1,0 +1,47 @@
+.login {
+  width: 25rem;
+  height: 25rem;
+  border: 1px solid gray;
+  border-radius: 1rem;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
+}
+
+.title {
+  font-size: 2.2rem;
+  background: radial-gradient(
+    circle at 7.5% 24%,
+    rgb(237, 161, 193) 0%,
+    rgb(250, 178, 172) 25.5%,
+    rgb(190, 228, 210) 62.3%,
+    rgb(215, 248, 247) 93.8%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 1rem 1rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-shadow: 4px 4px 2px rgba(0, 0, 0, 0.2);
+  margin: 3.5rem 0;
+  font-size: 1.5rem;
+}
+
+.googleBtn {
+  display: flex;
+  justify-content: center;
+}
+
+p {
+  margin: 0.2rem 0;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+}
