@@ -1,0 +1,29 @@
+.ProjectCreate {
+  margin-top: 4rem;
+  width: 100%;
+  max-width: 42rem;
+  font-family: 'tway_sky';
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.input {
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.tagItem {
+  padding: 0;
+  display: flex;
+  margin-top: 1rem;
+}
