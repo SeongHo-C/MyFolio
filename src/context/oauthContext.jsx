@@ -24,6 +24,10 @@ export function OauthProvider({ children }) {
     });
   };
 
+  const onLogout = () => {
+    setUserInfo('');
+  };
+
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
 
@@ -33,7 +37,7 @@ export function OauthProvider({ children }) {
   }, []);
 
   return (
-    <OauthContext.Provider value={{ userInfo, onRefresh }}>
+    <OauthContext.Provider value={{ userInfo, onRefresh, onLogout }}>
       {children}
     </OauthContext.Provider>
   );
