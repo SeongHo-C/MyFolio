@@ -1,36 +1,35 @@
 import { createContext, useEffect, useState } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
+import { setRefreshToken } from '../service/setRefreshToken';
+import { setAuthorizationToken } from '../service/setAuthorizationToken';
 
 export const OauthContext = createContext();
 
 export function OauthProvider({ children }) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [userInfo, setUserInfo] = useState(initialValue);
+  const [userInfo, setUserInfo] = useState();
 
-  const navigate = useNavigate();
+  const onRefresh = () => {
+    const accessToken = localStorage.getItem('accessToken');
+    const refreshToken = localStorage.getItem('refreshToken');
 
-  const onRefresh = () => {};
+    setRefreshToken(accessToken, refreshToken).then((data) => {
+      const { accessToken, refreshToken, accessTokenExpiresIn } = data;
 
-  const isGoogleLogin = () => {
-    const accessToken = searchParams.get('accessToken');
-    const refreshToken = searchParams.get('refreshToken');
-    const accessTokenExpiresIn = searchParams.get('accessTokenExpiresIn');
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('accessTokenExpiresIn', accessTokenExpiresIn);
 
-    if (accessToken) {
-      setUserInfo({
-        isLogin: true,
-        accessToken,
-        refreshToken,
-        accessTokenExpiresIn,
-      });
-
-      navigate('/');
-    }
+      setUserInfo(jwtDecode(accessToken));
+      setAuthorizationToken(accessToken);
+    });
   };
 
   useEffect(() => {
-    isGoogleLogin();
+    const token = localStorage.getItem('accessToken');
+
+    if (token) {
+      setUserInfo(jwtDecode(token));
+    }
   }, []);
 
   return (
@@ -39,10 +38,3 @@ export function OauthProvider({ children }) {
     </OauthContext.Provider>
   );
 }
-
-const initialValue = {
-  isLogin: false,
-  accessToken: '',
-  refreshToken: '',
-  accessTokenExpiresIn: '',
-};
