@@ -7,14 +7,27 @@ import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import styles from './project_create.module.css';
+import axios from 'axios';
+import { ImageUploader } from '../../service/image_uploader';
 
 export default function ProjectCreate() {
   const [tagItem, setTagItem] = useState([]);
+  const [img, setImg] = useState();
+  const [loading, setLoading] = useState(false);
 
   const tagRef = useRef();
+  const uploadRef = useRef();
+
+  const imageUpload = (e) => {
+    e.preventDefault();
+
+    uploadRef.current.click();
+  };
 
   const handleTagAdd = (e) => {
     if (e.target.value.length !== 0 && e.key === 'Enter') {
+      e.preventDefault();
+
       const updated = [...tagItem];
       updated.push(tagRef.current.value);
 
@@ -27,6 +40,21 @@ export default function ProjectCreate() {
     const updated = tagItem.filter((item) => item !== tag);
 
     setTagItem(updated);
+  };
+
+  const onImgChange = async (file) => {
+    setLoading(true);
+    const data = await ImageUploader(file)
+      .then((response) => response.data)
+      .finally(() => setLoading(false));
+    const { public_id, format } = data;
+
+    const url = `https://res.cloudinary.com/seongho-c/image/upload/w_400,h_200,c_fill,g_auto,q_auto:best/${public_id}.${format}`;
+    setImg(url);
+  };
+
+  const onDeleteImg = () => {
+    setImg('');
   };
 
   return (
@@ -78,8 +106,44 @@ export default function ProjectCreate() {
             ['table', 'image'],
             ['codeblock'],
           ]}
+          hooks={{
+            addImageBlobHook: async (blob, callback) => {
+              const url = await ImageUploader(blob).then(
+                (response) => response.data.url
+              );
+
+              callback(url, 'Image');
+            },
+          }}
         />
       </div>
+      <section className={styles.box}>
+        <label htmlFor='title' className={styles.title}>
+          프로젝트 미리보기
+        </label>
+        <div className={styles.preview}>
+          <div className={styles.previewLeft}>
+            <button className={styles.uploadBtn} onClick={imageUpload}>
+              썸네일 업로드
+            </button>
+            <span>2 : 1 비율의 사진 추천</span>
+          </div>
+          <div className={styles.previewImg} onClick={onDeleteImg}>
+            {loading ? (
+              <p>Loading...</p>
+            ) : (
+              img && <img className={styles.img} src={img} alt='미리보기'></img>
+            )}
+          </div>
+        </div>
+        <input
+          ref={uploadRef}
+          type='file'
+          name='file'
+          className={styles.file}
+          onChange={(e) => onImgChange(e.target.files[0])}
+        />
+      </section>
     </form>
   );
 }
