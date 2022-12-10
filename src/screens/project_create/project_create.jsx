@@ -132,7 +132,15 @@ export default function ProjectCreate() {
             {loading ? (
               <p>Loading...</p>
             ) : (
-              img && <img className={styles.img} src={img} alt='미리보기'></img>
+              <img
+                className={styles.img}
+                src={
+                  img
+                    ? img
+                    : 'https://res.cloudinary.com/seongho-c/image/upload/v1670669517/myfolio/KakaoTalk_20221210_192456496_qv0n2h.png'
+                }
+                alt='미리보기'
+              ></img>
             )}
           </div>
         </div>
