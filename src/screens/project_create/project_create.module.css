@@ -41,15 +41,19 @@
   display: flex;
 }
 
-.uploadBtn {
+.btn {
   background-color: rgb(250, 178, 172);
   color: white;
   padding: 0.5rem 1rem;
-  width: 10rem;
   height: 2.5rem;
   border-radius: 0.5rem;
   cursor: pointer;
   font-weight: 600;
+}
+
+.uploadBtn {
+  width: 10rem;
+
   margin-right: 5rem;
   margin-bottom: 1.5rem;
 }
@@ -79,4 +83,20 @@
   width: 100%;
   height: 100%;
   border-radius: 0.5rem;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+}
+
+.footerBtn {
+  width: 12rem;
+  margin-bottom: 3rem;
+}
+
+.choice {
+  font-size: 1rem;
+  margin-left: 0.5rem;
+  color: gray;
 }

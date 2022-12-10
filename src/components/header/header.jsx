@@ -21,7 +21,10 @@ export default function Header() {
 
   return (
     <nav className={styles.nav}>
-      <h1 className={styles.title}>{`<MyFolio />`}</h1>
+      <button
+        className={styles.title}
+        onClick={() => navigate('/')}
+      >{`<MyFolio />`}</button>
       <div className={styles.buttons}>
         <button className={styles.add} onClick={moveProjectCreate}>
           프로젝트 추가

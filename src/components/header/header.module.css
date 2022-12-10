@@ -8,6 +8,7 @@
 
 .title {
   font-size: 2.2rem;
+  font-weight: 600;
   background: radial-gradient(
     circle at 7.5% 24%,
     rgb(237, 161, 193) 0%,
