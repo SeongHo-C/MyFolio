@@ -1,7 +1,7 @@
 .ProjectCreate {
   margin-top: 4rem;
   width: 100%;
-  max-width: 42rem;
+  max-width: 52rem;
   font-family: 'tway_sky';
 }
 
@@ -26,4 +26,10 @@
   padding: 0;
   display: flex;
   margin-top: 1rem;
+}
+
+.contentBox {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3rem;
 }

@@ -1,5 +1,11 @@
 import React, { useRef, useState } from 'react';
 import TagItem from '../../components/tagItem/tagItem';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { Editor } from '@toast-ui/react-editor';
+
+import 'tui-color-picker/dist/tui-color-picker.css';
+import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
+import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import styles from './project_create.module.css';
 
 export default function ProjectCreate() {
@@ -54,6 +60,26 @@ export default function ProjectCreate() {
           ))}
         </ul>
       </section>
+      <div className={styles.contentBox}>
+        <span className={styles.title}>프로젝트 내용</span>
+        <Editor
+          className={styles.editor}
+          initialValue='프로젝트 내용을 입력해주세요'
+          previewStyle='vertical'
+          hideModeSwitch='WYSIWYG'
+          height='400px'
+          initialEditType='markdown'
+          useCommandShortcut={true}
+          plugins={[colorSyntax]}
+          toolbarItems={[
+            ['heading', 'bold', 'italic', 'strike'],
+            ['hr', 'quote'],
+            ['ul', 'ol', 'task'],
+            ['table', 'image'],
+            ['codeblock'],
+          ]}
+        />
+      </div>
     </form>
   );
 }
