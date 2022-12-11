@@ -54,13 +54,13 @@ export default function ProjectCreate() {
 
   const onImgChange = async (file) => {
     setLoading(true);
-    const data = await ImageUploader(file)
-      .then((response) => response.data)
-      .finally(() => setLoading(false));
+    const data = await ImageUploader(file).then((response) => response.data);
+
     const { public_id, format } = data;
 
     const url = `https://res.cloudinary.com/seongho-c/image/upload/w_400,h_200,c_fill,g_auto,q_auto:best/${public_id}.${format}`;
     setImg(url);
+    setLoading(false);
   };
 
   const onDeleteImg = () => {
