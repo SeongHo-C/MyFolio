@@ -28,6 +28,7 @@ export default function ProjectCreate() {
   const contentRef = useRef();
   const githubRef = useRef();
   const webRef = useRef();
+  const summaryRef = useRef();
 
   const imageUpload = (e) => {
     e.preventDefault();
@@ -79,17 +80,24 @@ export default function ProjectCreate() {
       githubUrl: githubRef.current.value || '',
       webUrl: webRef.current.value || '',
       thumbnailUrl: img || '',
+      summary: summaryRef.current.value || '',
     };
 
     onRegisterProject(data);
   };
 
   const onRegisterProject = async (data) => {
-    const { title, content, thumbnailUrl, tags } = data;
+    const { title, content, thumbnailUrl, tags, summary } = data;
 
     if (!title) {
       alert('제목을 입력하세요');
       titleRef.current.focus();
+      return;
+    }
+
+    if (!summary) {
+      alert('프로젝트를 한줄로 요약하세요');
+      summaryRef.current.focus();
       return;
     }
 
@@ -132,6 +140,18 @@ export default function ProjectCreate() {
           placeholder='제목을 입력하세요'
           type='text'
           name='title'
+          className={styles.input}
+        />
+      </section>
+      <section className={styles.box}>
+        <label htmlFor='summary' className={styles.title}>
+          한줄 요약
+        </label>
+        <input
+          ref={summaryRef}
+          placeholder='프로젝트를 한줄로 요약하세요'
+          type='text'
+          name='summary'
           className={styles.input}
         />
       </section>
