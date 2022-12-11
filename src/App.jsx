@@ -7,6 +7,7 @@ import Oauth from './screens/oauth/oauth';
 import Header from './components/header/header';
 import Login from './components/login/login';
 import ProjectCreate from './screens/project_create/project_create';
+import { ProjectsProvider } from './context/projectsContext';
 
 export default function App() {
   const { userInfo } = useContext(OauthContext);

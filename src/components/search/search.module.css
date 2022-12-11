@@ -47,7 +47,7 @@ svg {
   cursor: pointer;
 }
 
-ul {
+.ul {
   font-size: 0.9rem;
   position: absolute;
   list-style: none;
@@ -57,13 +57,13 @@ ul {
   padding: 0.5rem;
 }
 
-li {
+.li {
   padding: 0.5rem 2rem;
   border-radius: 0.5rem;
   cursor: pointer;
 }
 
-li:hover {
+.li:hover {
   background-color: rgb(250, 178, 172);
   color: white;
 }
