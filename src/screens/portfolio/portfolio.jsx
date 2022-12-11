@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+import PortfolioCard from '../../components/portfolio_card/portfolio_card';
 import Search from '../../components/search/search';
 import { projectsContext } from '../../context/projectsContext';
 import styles from './portfolio.module.css';
 
 export default function Portfolio() {
-  const { projects } = useContext(projectsContext);
+  const { projects, getProjects } = useContext(projectsContext);
 
   return (
     <div className={styles.portfolio}>
@@ -13,9 +14,10 @@ export default function Portfolio() {
         <Search />
       </section>
       <section className={styles.card}>
-        {projects.map((project) => {
-          return <h1>project.title</h1>;
-        })}
+        {projects &&
+          projects.map((project) => (
+            <PortfolioCard key={project.id} project={project} />
+          ))}
       </section>
     </div>
   );

@@ -11,12 +11,13 @@ import { ImageUploader } from '../../service/image_uploader';
 import { OauthContext } from '../../context/oauthContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { TokenCheck } from '../../service/token_check';
 
 export default function ProjectCreate() {
   const [tagItem, setTagItem] = useState([]);
   const [img, setImg] = useState();
   const [loading, setLoading] = useState(false);
-  const { userInfo } = useContext(OauthContext);
+  const { userInfo, onRefresh } = useContext(OauthContext);
 
   const url = process.env.REACT_APP_URL;
   const navigate = useNavigate();
@@ -108,6 +109,8 @@ export default function ProjectCreate() {
       alert('썸네일을 업로드하세요');
       return;
     }
+
+    if (TokenCheck) onRefresh();
 
     await axios
       .post(`${url}/project`, data)

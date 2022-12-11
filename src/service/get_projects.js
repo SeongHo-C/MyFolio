@@ -8,7 +8,7 @@ export const GetProjects = async (keyword, type) => {
       keyword,
       type,
       page: 1,
-      size: 9,
+      size: 6,
     },
   });
 
