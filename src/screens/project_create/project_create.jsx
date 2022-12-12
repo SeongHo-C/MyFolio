@@ -190,7 +190,7 @@ export default function ProjectCreate() {
             ['heading', 'bold', 'italic', 'strike'],
             ['hr', 'quote'],
             ['ul', 'ol', 'task'],
-            ['table', 'image'],
+            ['image'],
             ['codeblock'],
           ]}
           hooks={{

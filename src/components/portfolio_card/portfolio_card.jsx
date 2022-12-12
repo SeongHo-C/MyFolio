@@ -9,19 +9,25 @@ export default function PortfolioCard({ project }) {
   const navigate = useNavigate();
 
   return (
-    <section className={styles.card} onClick={() => navigate(`/project/${id}`)}>
-      <img className={styles.img} src={thumbnailUrl} alt='프로젝트 미리보기' />
-      <main className={styles.main}>
-        <span style={{ fontWeight: '600' }}>{title}</span>
-        <span className={styles.summary}>{summary}</span>
-        <div className={styles.tags}>
-          {tags.map((tag) => (
-            <span className={styles.tag} key={tag.id}>
-              {tag.name}
-            </span>
-          ))}
-        </div>
-      </main>
+    <section className={styles.card}>
+      <div onClick={() => navigate(`/project/${id}`)}>
+        <img
+          className={styles.img}
+          src={thumbnailUrl}
+          alt='프로젝트 미리보기'
+        />
+        <main className={styles.main}>
+          <span style={{ fontWeight: '600' }}>{title}</span>
+          <span className={styles.summary}>{summary}</span>
+          <div className={styles.tags}>
+            {tags.map((tag) => (
+              <span className={styles.tag} key={tag.id}>
+                {tag.name}
+              </span>
+            ))}
+          </div>
+        </main>
+      </div>
       <footer className={styles.footer}>
         {githubUrl && (
           <BsGithub
@@ -30,12 +36,10 @@ export default function PortfolioCard({ project }) {
           />
         )}
         {webUrl && (
-          <a href={webUrl}>
-            <BsGlobe
-              className={styles.web}
-              onClick={() => window.open(webUrl, '_blank')}
-            />
-          </a>
+          <BsGlobe
+            className={styles.web}
+            onClick={() => window.open(webUrl, '_blank')}
+          />
         )}
       </footer>
     </section>

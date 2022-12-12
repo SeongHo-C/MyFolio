@@ -1,0 +1,51 @@
+.detail {
+  width: 100%;
+  max-width: 40rem;
+  margin-top: 4rem;
+  font-family: 'OpenSans-Regular';
+}
+
+.title {
+  font-size: 2rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.tags {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-size: 1rem;
+  background: black;
+  color: white;
+  padding: 0.5rem 1.1rem;
+  margin-right: 0.5rem;
+  border-radius: 1rem;
+}
+
+.summary {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  border: 2px solid gray;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+}
+
+.github,
+.web {
+  cursor: pointer;
+  color: black;
+}
+
+.github {
+  margin-right: 1rem;
+}
+
+.github:hover,
+.web:hover {
+  opacity: 0.8;
+}

@@ -49,6 +49,11 @@
   color: black;
 }
 
+.github:hover,
+.web:hover {
+  opacity: 0.8;
+}
+
 .github {
   margin-right: 0.5rem;
 }
@@ -56,9 +61,4 @@
 .summary {
   font-size: 0.8rem;
   margin: 0.5rem 0;
-}
-
-.github:hover,
-.web:hover {
-  opacity: 0.8;
 }
