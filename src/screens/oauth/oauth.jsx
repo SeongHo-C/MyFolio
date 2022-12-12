@@ -15,12 +15,13 @@ export default function Oauth() {
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('refreshToken', refreshToken);
     localStorage.setItem('accessTokenExpiresIn', accessTokenExpiresIn);
-    setAuthorizationToken(accessToken);
 
-    if (accessToken) navigate('/');
+    setAuthorizationToken(accessToken);
+    navigate('/');
   };
 
   useEffect(() => {
     isGoogleLogin();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }

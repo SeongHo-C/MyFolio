@@ -5,6 +5,10 @@ import { OauthProvider } from './context/oauthContext';
 import './index.css';
 
 import reportWebVitals from './reportWebVitals';
+import { setAuthorizationToken } from './service/setAuthorizationToken';
+
+const token = localStorage.getItem('accessToken');
+token && setAuthorizationToken(token);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

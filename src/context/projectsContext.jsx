@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { GetProjects } from '../service/get_projects';
+import { setAuthorizationToken } from '../service/setAuthorizationToken';
 import { TokenCheck } from '../service/token_check';
 import { OauthContext } from './oauthContext';
 
@@ -10,7 +11,7 @@ export function ProjectsProvider({ children }) {
   const { onRefresh } = useContext(OauthContext);
 
   const getProjects = async (keyword, type) => {
-    if (TokenCheck) onRefresh();
+    if (TokenCheck()) onRefresh();
 
     const response = await GetProjects(keyword, type);
     setProjects(response.data);
@@ -18,6 +19,7 @@ export function ProjectsProvider({ children }) {
 
   useEffect(() => {
     getProjects('', '');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

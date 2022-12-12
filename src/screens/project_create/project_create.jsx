@@ -12,6 +12,7 @@ import { OauthContext } from '../../context/oauthContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { TokenCheck } from '../../service/token_check';
+import { setAuthorizationToken } from '../../service/setAuthorizationToken';
 
 export default function ProjectCreate() {
   const [tagItem, setTagItem] = useState([]);
@@ -118,7 +119,7 @@ export default function ProjectCreate() {
       return;
     }
 
-    if (TokenCheck) onRefresh();
+    if (TokenCheck()) onRefresh();
 
     await axios
       .post(`${url}/project`, data)

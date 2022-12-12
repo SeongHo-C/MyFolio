@@ -14,13 +14,12 @@ export function OauthProvider({ children }) {
 
     setRefreshToken(accessToken, refreshToken).then((data) => {
       const { accessToken, refreshToken, accessTokenExpiresIn } = data;
-
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
       localStorage.setItem('accessTokenExpiresIn', accessTokenExpiresIn);
 
-      setUserInfo(jwtDecode(accessToken));
       setAuthorizationToken(accessToken);
+      setUserInfo(jwtDecode(accessToken));
     });
   };
 
@@ -28,12 +27,15 @@ export function OauthProvider({ children }) {
     setUserInfo('');
   };
 
+  const initialUserInfo = (token) => {
+    const userInfo = jwtDecode(token);
+    setUserInfo(userInfo);
+  };
+
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
 
-    if (token) {
-      setUserInfo(jwtDecode(token));
-    }
+    token && initialUserInfo(token);
   }, []);
 
   return (
