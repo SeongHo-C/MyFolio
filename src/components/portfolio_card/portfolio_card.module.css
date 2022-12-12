@@ -18,13 +18,13 @@
 }
 
 .main {
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   display: flex;
   flex-direction: column;
 }
 
 .tags {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   display: flex;
   flex-wrap: wrap;
 }
@@ -46,8 +46,19 @@
 .github,
 .web {
   cursor: pointer;
+  color: black;
 }
 
 .github {
   margin-right: 0.5rem;
+}
+
+.summary {
+  font-size: 0.8rem;
+  margin: 0.5rem 0;
+}
+
+.github:hover,
+.web:hover {
+  opacity: 0.8;
 }

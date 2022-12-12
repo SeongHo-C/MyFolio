@@ -11,7 +11,10 @@ export const ImageUploader = async (file) => {
 
   const url = axios.post(
     'https://api.cloudinary.com/v1_1/seongho-c/image/upload',
-    data
+    data,
+    {
+      withcredentials: false,
+    }
   );
 
   return await url;
