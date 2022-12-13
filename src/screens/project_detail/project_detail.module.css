@@ -5,6 +5,11 @@
   font-family: 'OpenSans-Regular';
 }
 
+.date {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .title {
   font-size: 2rem;
   margin-top: 0;

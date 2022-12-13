@@ -7,6 +7,11 @@
   -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.1);
   font-family: 'OpenSans-Regular';
+  cursor: pointer;
+}
+
+.card:hover {
+  opacity: 0.6;
 }
 
 .img {
