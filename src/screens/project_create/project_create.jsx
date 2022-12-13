@@ -13,6 +13,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { TokenCheck } from '../../service/token_check';
 import { setAuthorizationToken } from '../../service/setAuthorizationToken';
+import instance from '../../service/interceptor';
 
 export default function ProjectCreate() {
   const [tagItem, setTagItem] = useState([]);
@@ -121,13 +122,14 @@ export default function ProjectCreate() {
 
     if (TokenCheck()) onRefresh();
 
-    await axios
-      .post(`${url}/project`, data)
-      .then(() => {
+    try {
+      await instance.post(`/project`, data).then(() => {
         alert('작성이 완료되었습니다.');
         navigate('/');
-      })
-      .catch(console.log);
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

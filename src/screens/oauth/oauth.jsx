@@ -16,7 +16,6 @@ export default function Oauth() {
     localStorage.setItem('refreshToken', refreshToken);
     localStorage.setItem('accessTokenExpiresIn', accessTokenExpiresIn);
 
-    setAuthorizationToken(accessToken);
     navigate('/');
   };
 

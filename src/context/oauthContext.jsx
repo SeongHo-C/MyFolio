@@ -18,7 +18,6 @@ export function OauthProvider({ children }) {
       localStorage.setItem('refreshToken', refreshToken);
       localStorage.setItem('accessTokenExpiresIn', accessTokenExpiresIn);
 
-      setAuthorizationToken(accessToken);
       setUserInfo(jwtDecode(accessToken));
     });
   };
