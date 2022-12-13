@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { setAuthorizationToken } from './setAuthorizationToken';
 
 export const ImageUploader = async (file) => {
   const api_key = process.env.REACT_APP_CLOUDINARY;
@@ -16,9 +15,6 @@ export const ImageUploader = async (file) => {
     'https://api.cloudinary.com/v1_1/seongho-c/image/upload',
     data
   );
-
-  const token = localStorage.getItem('accessToken');
-  setAuthorizationToken(token);
 
   return await url;
 };

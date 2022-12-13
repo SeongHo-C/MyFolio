@@ -1,0 +1,102 @@
+.ProjectEdit {
+  margin-top: 4rem;
+  width: 100%;
+  max-width: 52rem;
+  font-family: 'tway_sky';
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.input {
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.tagItem {
+  padding: 0;
+  display: flex;
+  margin-top: 1rem;
+}
+
+.contentBox {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3rem;
+}
+
+.file {
+  display: none;
+}
+.preview {
+  display: flex;
+}
+
+.btn {
+  background-color: rgb(250, 178, 172);
+  color: white;
+  padding: 0.5rem 1rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.uploadBtn {
+  width: 10rem;
+
+  margin-right: 5rem;
+  margin-bottom: 1.5rem;
+}
+
+.uploadBtn:hover {
+  opacity: 0.8;
+}
+
+.previewLeft {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+}
+
+.previewImg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20rem;
+  height: 10rem;
+  color: white;
+  background-color: lightgray;
+  border-radius: 0.5rem;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5rem;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+}
+
+.footerBtn {
+  width: 12rem;
+  margin-bottom: 3rem;
+}
+
+.choice {
+  font-size: 1rem;
+  margin-left: 0.5rem;
+  color: gray;
+}

@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import instance from '../service/interceptor';
-import { setAuthorizationToken } from '../service/setAuthorizationToken';
 import { TokenCheck } from '../service/token_check';
 import { OauthContext } from './oauthContext';
 

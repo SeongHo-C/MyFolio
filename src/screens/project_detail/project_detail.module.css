@@ -54,3 +54,8 @@
 .web:hover {
   opacity: 0.8;
 }
+
+.url {
+  font-size: 0.8rem;
+  margin-bottom: 2rem;
+}

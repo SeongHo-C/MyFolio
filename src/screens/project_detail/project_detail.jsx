@@ -25,6 +25,7 @@ export default function ProjectDetail() {
         .get(`/project/${id}`)
         .then((response) => response.data)
         .then((data) => {
+          console.log(data);
           const modifiedDate = handleDate(new Date(data.modifiedDate));
           setProject({ ...data, modifiedDate });
         });
@@ -68,6 +69,12 @@ export default function ProjectDetail() {
     }
   };
 
+  const onMoveEdit = () => {
+    navigate(`/project/edit/${id}`, {
+      state: { project },
+    });
+  };
+
   useEffect(() => {
     getProject();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -79,7 +86,7 @@ export default function ProjectDetail() {
     <section className={styles.detail}>
       <div className={styles.date}>
         <span style={{ marginRight: '10px' }}>{project.modifiedDate}</span>
-        <button>수정</button>
+        <button onClick={onMoveEdit}>수정</button>
         <button onClick={handleDelete}>삭제</button>
       </div>
       <h1 className={styles.title}>{project.title}</h1>

@@ -9,6 +9,7 @@ import Login from './components/login/login';
 import ProjectCreate from './screens/project_create/project_create';
 import { ProjectsProvider } from './context/projectsContext';
 import ProjectDetail from './screens/project_detail/project_detail';
+import ProjectEdit from './screens/project_edit/project_edit';
 
 export default function App() {
   const { userInfo } = useContext(OauthContext);
@@ -22,6 +23,7 @@ export default function App() {
           <Route path='/oauth/saving' element={<Oauth />} />
           <Route path='/project/create' element={<ProjectCreate />} />
           <Route path='/project/:id' element={<ProjectDetail />} />
+          <Route path='/project/edit/:id' element={<ProjectEdit />} />
         </Routes>
       </BrowserRouter>
     </div>
