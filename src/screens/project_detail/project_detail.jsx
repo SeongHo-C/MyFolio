@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { OauthContext } from '../../context/oauthContext';
@@ -25,7 +24,6 @@ export default function ProjectDetail() {
         .get(`/project/${id}`)
         .then((response) => response.data)
         .then((data) => {
-          console.log(data);
           const modifiedDate = handleDate(new Date(data.modifiedDate));
           setProject({ ...data, modifiedDate });
         });

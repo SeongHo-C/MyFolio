@@ -5,6 +5,7 @@
   padding: 0.6rem 1.1rem;
   border-radius: 2rem;
   width: 32rem;
+  transition: all 1s ease;
 }
 
 .search {
@@ -65,5 +66,36 @@ svg {
 
 .li:hover {
   background-color: rgb(250, 178, 172);
+  color: white;
+}
+
+.autoTag {
+  border: 2px solid black;
+  border-top: 0;
+  width: 32rem;
+  padding: 0.5rem 1rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  font-family: 'OpenSans-Regular';
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.searchTagWrap {
+  position: relative;
+  margin-top: 1rem;
+  border: 2px solid black;
+  padding: 0.6rem 1.1rem;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+  width: 32rem;
+  transition: all 1s ease;
+}
+
+.tag {
+  padding: 0.3rem 1rem;
+  margin: 0.3rem 0.3rem;
+  border-radius: 1rem;
+  background-color: black;
   color: white;
 }

@@ -1,13 +1,17 @@
 .detail {
   width: 100%;
   max-width: 40rem;
-  margin-top: 4rem;
+  margin: 4rem 0;
   font-family: 'OpenSans-Regular';
 }
 
 .date {
   display: flex;
   justify-content: flex-end;
+}
+
+.date button:hover {
+  color: rgb(250, 178, 172);
 }
 
 .title {

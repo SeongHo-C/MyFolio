@@ -19,3 +19,9 @@
   flex-wrap: wrap;
   width: 1200px;
 }
+
+.noSelect {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

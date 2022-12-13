@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import jwtDecode from 'jwt-decode';
 import { setRefreshToken } from '../service/setRefreshToken';
-import { setAuthorizationToken } from '../service/setAuthorizationToken';
 
 export const OauthContext = createContext();
 

@@ -14,10 +14,15 @@ export default function Portfolio() {
         <Search />
       </section>
       <section className={styles.card}>
-        {projects &&
+        {projects && projects.length > 0 ? (
           projects.map((project) => (
             <PortfolioCard key={project.id} project={project} />
-          ))}
+          ))
+        ) : (
+          <div className={styles.noSelect}>
+            <p>😢 검색 결과가 없습니다.</p>
+          </div>
+        )}
       </section>
     </div>
   );
