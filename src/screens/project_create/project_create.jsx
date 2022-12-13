@@ -155,6 +155,7 @@ export default function ProjectCreate() {
         </label>
         <input
           ref={summaryRef}
+          maxLength={50}
           placeholder='프로젝트를 한줄로 요약하세요'
           type='text'
           name='summary'

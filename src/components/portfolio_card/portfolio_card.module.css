@@ -1,6 +1,6 @@
 .card {
-  width: 20rem;
-  height: 20rem;
+  width: 22rem;
+  height: 23.5rem;
   border-radius: 1rem;
   margin: 1.5rem;
   box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.1);
@@ -18,13 +18,15 @@
 }
 
 .main {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.5rem;
   display: flex;
   flex-direction: column;
+  height: 10.5rem;
 }
 
 .tags {
-  margin-top: 0.5rem;
+  margin-top: 0.2rem;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
 }
@@ -33,14 +35,14 @@
   font-size: 0.8rem;
   background: black;
   color: white;
-  padding: 0.4rem 1rem;
-  margin-right: 0.5rem;
+  padding: 0.3rem 1rem;
+  margin: 0.3rem 0.3rem 0.3rem 0;
   border-radius: 1rem;
 }
 
 .footer {
   font-size: 0.7rem;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.5rem;
 }
 
 .github,
@@ -55,10 +57,17 @@
 }
 
 .github {
-  margin-right: 0.5rem;
+  margin-right: 1rem;
 }
 
 .summary {
   font-size: 0.8rem;
   margin: 0.5rem 0;
+  display: -webkit-box;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  width: 100%;
 }
