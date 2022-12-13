@@ -9,10 +9,8 @@ import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import styles from './project_create.module.css';
 import { ImageUploader } from '../../service/image_uploader';
 import { OauthContext } from '../../context/oauthContext';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { TokenCheck } from '../../service/token_check';
-import { setAuthorizationToken } from '../../service/setAuthorizationToken';
 import instance from '../../service/interceptor';
 
 export default function ProjectCreate() {
@@ -21,7 +19,6 @@ export default function ProjectCreate() {
   const [loading, setLoading] = useState(false);
   const { userInfo, onRefresh } = useContext(OauthContext);
 
-  const url = process.env.REACT_APP_URL;
   const navigate = useNavigate();
 
   const tagRef = useRef();
@@ -42,7 +39,13 @@ export default function ProjectCreate() {
     if (e.target.value.length !== 0 && e.key === 'Enter') {
       e.preventDefault();
 
+      if (tagItem.length === 5) {
+        alert('태그의 최대 개수는 5개에요');
+        return;
+      }
+
       const updated = [...tagItem];
+
       updated.push(tagRef.current.value);
 
       tagRef.current.value = '';
@@ -159,9 +162,12 @@ export default function ProjectCreate() {
         />
       </section>
       <section className={styles.box}>
-        <label htmlFor='tag' className={styles.title}>
-          태그
-        </label>
+        <div>
+          <label htmlFor='tag' className={styles.title}>
+            태그
+          </label>
+          <span className={styles.choice}>(최대 5개)</span>
+        </div>
         <input
           placeholder='태그를 입력하고 엔터를 누르세요'
           ref={tagRef}
