@@ -4,12 +4,15 @@ import { BiSearch } from 'react-icons/bi';
 import { BsFillCaretDownFill } from 'react-icons/bs';
 import { projectsContext } from '../../context/projectsContext';
 import instance from '../../service/interceptor';
+import { TokenCheck } from '../../service/token_check';
+import { OauthContext } from '../../context/oauthContext';
 
 export default function Search() {
   const [type, setType] = useState('제목');
   const [open, setOpen] = useState(false);
   const { getProjects } = useContext(projectsContext);
   const [tags, setTags] = useState('');
+  const { onRefresh } = useContext(OauthContext);
 
   const inputRef = useRef();
 
@@ -32,6 +35,8 @@ export default function Search() {
       return;
     }
 
+    if (TokenCheck()) onRefresh();
+
     await instance
       .get(`/tag?tagName=${keyword}`)
       .then((response) => response.data)
@@ -42,6 +47,12 @@ export default function Search() {
       });
   };
 
+  const onClickTag = (tag) => {
+    inputRef.current.value = tag;
+
+    getProjects(tag, 'TAG');
+  };
+
   return (
     <div>
       <div
@@ -50,7 +61,13 @@ export default function Search() {
         }
       >
         <div className={styles.search}>
-          <section className={styles.type} onClick={() => setOpen(!open)}>
+          <section
+            className={styles.type}
+            onClick={() => {
+              setOpen(!open);
+              setTags('');
+            }}
+          >
             <span className={styles.select}>{type}</span>
             <BsFillCaretDownFill className={styles.selectBtn} />
           </section>
@@ -82,7 +99,11 @@ export default function Search() {
       {tags?.length > 0 && (
         <div className={styles.autoTag}>
           {tags.map((tag) => (
-            <span className={styles.tag} key={tag}>
+            <span
+              className={styles.tag}
+              key={tag}
+              onClick={() => onClickTag(tag)}
+            >
               {tag}
             </span>
           ))}
