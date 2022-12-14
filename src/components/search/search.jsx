@@ -53,6 +53,14 @@ export default function Search() {
     getProjects(tag, 'TAG');
   };
 
+  useEffect(() => {
+    const keyword = sessionStorage.getItem('keyword');
+    const type = sessionStorage.getItem('type') === 'TITLE' ? '제목' : '태그';
+
+    if (keyword) inputRef.current.value = keyword;
+    setType(type);
+  }, []);
+
   return (
     <div>
       <div

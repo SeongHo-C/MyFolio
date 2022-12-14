@@ -21,11 +21,18 @@ export function ProjectsProvider({ children }) {
       },
     });
 
+    sessionStorage.setItem('keyword', keyword);
+    sessionStorage.setItem('type', type);
+
     setProjects(response.data.data);
   };
 
   useEffect(() => {
-    getProjects('', '');
+    const keyword = sessionStorage.getItem('keyword');
+    const type = sessionStorage.getItem('type');
+
+    if (keyword) getProjects(keyword, type);
+    else getProjects('', '');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
