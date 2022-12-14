@@ -90,9 +90,13 @@ export default function Search() {
         </button>
 
         {open && (
-          <ul className={styles.ul} onClick={handleChandeTag}>
-            <li className={styles.li}>제목</li>
-            <li className={styles.li}>태그</li>
+          <ul className={styles.ul}>
+            <li className={styles.li} onClick={handleChandeTag}>
+              제목
+            </li>
+            <li className={styles.li} onClick={handleChandeTag}>
+              태그
+            </li>
           </ul>
         )}
       </div>

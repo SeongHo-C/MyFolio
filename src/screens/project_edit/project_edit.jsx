@@ -166,7 +166,7 @@ export default function ProjectEdit() {
   if (!project) return;
 
   return (
-    <form className={styles.ProjectEdit} onSubmit={onSubmit}>
+    <div className={styles.ProjectEdit}>
       <section className={styles.box}>
         <label htmlFor='title' className={styles.title}>
           제목
@@ -319,10 +319,13 @@ export default function ProjectEdit() {
         />
       </section>
       <footer className={styles.footer}>
-        <button className={`${styles.footerBtn} ${styles.btn}`}>
+        <button
+          className={`${styles.footerBtn} ${styles.btn}`}
+          onClick={onSubmit}
+        >
           수정하기
         </button>
       </footer>
-    </form>
+    </div>
   );
 }

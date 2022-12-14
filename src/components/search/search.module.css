@@ -98,4 +98,5 @@ svg {
   border-radius: 1rem;
   background-color: rgb(110, 170, 140);
   color: white;
+  cursor: pointer;
 }

@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useCallback, useContext, useRef, useState } from 'react';
 import TagItem from '../../components/tagItem/tagItem';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
@@ -136,7 +136,7 @@ export default function ProjectCreate() {
   };
 
   return (
-    <form className={styles.ProjectCreate} onSubmit={onSubmit}>
+    <div className={styles.ProjectCreate}>
       <section className={styles.box}>
         <label htmlFor='title' className={styles.title}>
           제목
@@ -283,10 +283,13 @@ export default function ProjectCreate() {
         />
       </section>
       <footer className={styles.footer}>
-        <button className={`${styles.footerBtn} ${styles.btn}`}>
+        <button
+          onClick={onSubmit}
+          className={`${styles.footerBtn} ${styles.btn}`}
+        >
           등록하기
         </button>
       </footer>
-    </form>
+    </div>
   );
 }
