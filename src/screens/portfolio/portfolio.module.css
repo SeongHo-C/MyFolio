@@ -14,7 +14,7 @@
 }
 
 .card {
-  margin-top: 4rem;
+  margin: 4rem 0;
   display: flex;
   flex-wrap: wrap;
   width: 1200px;

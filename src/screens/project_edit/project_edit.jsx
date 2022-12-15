@@ -189,7 +189,7 @@ export default function ProjectEdit() {
           ref={summaryRef}
           className={styles.input}
           value={project.summary}
-          maxLength={50}
+          maxLength={65}
           placeholder='프로젝트를 한줄로 요약하세요'
           type='text'
           name='summary'

@@ -100,3 +100,7 @@
   margin-left: 0.5rem;
   color: gray;
 }
+
+.box input:focus {
+  border: 3px solid black;
+}

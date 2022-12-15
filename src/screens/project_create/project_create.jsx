@@ -15,9 +15,12 @@ import instance from '../../service/interceptor';
 
 export default function ProjectCreate() {
   const [tagItem, setTagItem] = useState([]);
-  const [img, setImg] = useState();
+  const [img, setImg] = useState(
+    'https://res.cloudinary.com/seongho-c/image/upload/v1670669517/myfolio/KakaoTalk_20221210_192456496_qv0n2h.png'
+  );
   const [loading, setLoading] = useState(false);
   const { userInfo, onRefresh } = useContext(OauthContext);
+  const [imgUrl, setImgUrl] = useState();
 
   const navigate = useNavigate();
 
@@ -29,49 +32,77 @@ export default function ProjectCreate() {
   const webRef = useRef();
   const summaryRef = useRef();
 
-  const imageUpload = (e) => {
+  const imageUpload = useCallback((e) => {
     e.preventDefault();
 
     uploadRef.current.click();
-  };
+  }, []);
 
-  const handleTagAdd = (e) => {
-    if (e.target.value.length !== 0 && e.key === 'Enter') {
-      e.preventDefault();
+  const handleTagAdd = useCallback(
+    (e) => {
+      if (e.target.value.length !== 0 && e.key === 'Enter') {
+        e.preventDefault();
 
-      if (tagItem.length === 5) {
-        alert('태그의 최대 개수는 5개에요');
-        return;
+        if (tagItem.length === 5) {
+          alert('태그의 최대 개수는 5개에요');
+          return;
+        }
+
+        const updated = [...tagItem];
+
+        updated.push(tagRef.current.value);
+
+        tagRef.current.value = '';
+        setTagItem([...new Set(updated)]);
       }
+    },
+    [tagItem]
+  );
 
-      const updated = [...tagItem];
+  const handleTagRemove = useCallback(
+    (tag) => {
+      const updated = tagItem.filter((item) => item !== tag);
 
-      updated.push(tagRef.current.value);
+      setTagItem(updated);
+    },
+    [tagItem]
+  );
 
-      tagRef.current.value = '';
-      setTagItem([...new Set(updated)]);
-    }
-  };
+  const onPreview = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
 
-  const handleTagRemove = (tag) => {
-    const updated = tagItem.filter((item) => item !== tag);
-
-    setTagItem(updated);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setImg(reader.result);
+        resolve();
+      };
+    });
   };
 
   const onImgChange = async (file) => {
     setLoading(true);
-    const data = await ImageUploader(file).then((response) => response.data);
+    onPreview(file);
 
-    const { public_id, format } = data;
+    try {
+      await ImageUploader(file)
+        .then((response) => response.data)
+        .then((data) => {
+          const { public_id, format } = data;
+          const url = `https://res.cloudinary.com/seongho-c/image/upload/w_400,h_200,c_fill,g_auto,q_auto:best/${public_id}.${format}`;
 
-    const url = `https://res.cloudinary.com/seongho-c/image/upload/w_400,h_200,c_fill,g_auto,q_auto:best/${public_id}.${format}`;
-    setImg(url);
-    setLoading(false);
+          setImgUrl(url);
+        })
+        .finally(() => setLoading(false));
+    } catch (error) {
+      console.log(`이미지 변경 error: ${error}`);
+    }
   };
 
   const onDeleteImg = () => {
-    setImg('');
+    setImg(
+      'https://res.cloudinary.com/seongho-c/image/upload/v1670669517/myfolio/KakaoTalk_20221210_192456496_qv0n2h.png'
+    );
   };
 
   const onSubmit = (e) => {
@@ -84,7 +115,7 @@ export default function ProjectCreate() {
       content: contentRef.current.getInstance().getMarkdown() || '',
       githubUrl: githubRef.current.value || '',
       webUrl: webRef.current.value || '',
-      thumbnailUrl: img || '',
+      thumbnailUrl: imgUrl || '',
       summary: summaryRef.current.value || '',
     };
 
@@ -155,7 +186,7 @@ export default function ProjectCreate() {
         </label>
         <input
           ref={summaryRef}
-          maxLength={50}
+          maxLength={65}
           placeholder='프로젝트를 한줄로 요약하세요'
           type='text'
           name='summary'
@@ -236,15 +267,7 @@ export default function ProjectCreate() {
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <img
-                className={styles.img}
-                src={
-                  img
-                    ? img
-                    : 'https://res.cloudinary.com/seongho-c/image/upload/v1670669517/myfolio/KakaoTalk_20221210_192456496_qv0n2h.png'
-                }
-                alt='미리보기'
-              ></img>
+              <img className={styles.img} src={img} alt='미리보기' />
             )}
           </div>
         </div>
