@@ -4,14 +4,12 @@ export const setRefreshToken = async (accessToken, refreshToken) => {
   const url = process.env.REACT_APP_URL;
 
   try {
-    const data = await axios
-      .post(`${url}/token/reissue`, {
-        accessToken,
-        refreshToken,
-      })
-      .then((response) => response.data);
+    const response = await axios.post(`${url}/token/reissue`, {
+      accessToken,
+      refreshToken,
+    });
 
-    return data;
+    return response.data;
   } catch (error) {
     console.log(error);
   }

@@ -1,13 +1,11 @@
 import styles from './App.module.css';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import Main from './screens/main/main';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { OauthContext, OauthProvider } from './context/oauthContext';
+import { OauthContext } from './context/oauthContext';
 import Oauth from './screens/oauth/oauth';
 import Header from './components/header/header';
-import Login from './components/login/login';
 import ProjectCreate from './screens/project_create/project_create';
-import { ProjectsProvider } from './context/projectsContext';
 import ProjectDetail from './screens/project_detail/project_detail';
 import ProjectEdit from './screens/project_edit/project_edit';
 
