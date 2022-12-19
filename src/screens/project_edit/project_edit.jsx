@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import TagItem from '../../components/tagItem/tagItem';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
-
 import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
@@ -14,7 +13,7 @@ import { TokenCheck } from '../../service/token_check';
 import instance from '../../service/interceptor';
 
 export default function ProjectEdit() {
-  const [project, setProject] = useState();
+  const [project, setProject] = useState('');
   const [tagItem, setTagItem] = useState([]);
   const [loading, setLoading] = useState(false);
   const { userInfo, onRefresh } = useContext(OauthContext);
@@ -23,8 +22,6 @@ export default function ProjectEdit() {
   const titleRef = useRef();
   const uploadRef = useRef();
   const contentRef = useRef();
-  const githubRef = useRef();
-  const webRef = useRef();
   const summaryRef = useRef();
 
   const location = useLocation();
@@ -70,18 +67,21 @@ export default function ProjectEdit() {
   };
 
   const onImgChange = async (file) => {
-    setLoading(true);
-    const data = await ImageUploader(file).then((response) => response.data);
+    try {
+      setLoading(true);
+      const response = await ImageUploader(file);
 
-    const { public_id, format } = data;
+      const { public_id, format } = response.data;
+      const url = `https://res.cloudinary.com/seongho-c/image/upload/w_400,h_200,c_fill,g_auto,q_auto:best/${public_id}.${format}`;
 
-    const url = `https://res.cloudinary.com/seongho-c/image/upload/w_400,h_200,c_fill,g_auto,q_auto:best/${public_id}.${format}`;
+      const updated = { ...project };
+      updated['thumbnailUrl'] = url;
 
-    const updated = { ...project };
-    updated['thumbnailUrl'] = url;
-
-    setProject(updated);
-    setLoading(false);
+      setProject(updated);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onDeleteImg = () => {
@@ -90,7 +90,6 @@ export default function ProjectEdit() {
 
     setProject(updated);
   };
-  console.log(project);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -148,7 +147,7 @@ export default function ProjectEdit() {
     try {
       await instance.put(`/project/${id}`, data).then(() => {
         alert('수정이 완료되었습니다.');
-        navigate(`/project/${id}`, { replace: true });
+        navigate(`/project/${id}`);
       });
     } catch (error) {
       console.log(error);
@@ -204,6 +203,7 @@ export default function ProjectEdit() {
           <span className={styles.choice}>(최대 5개)</span>
         </div>
         <input
+          maxLength={15}
           placeholder='태그를 입력하고 엔터를 누르세요'
           ref={tagRef}
           type='text'
@@ -238,14 +238,10 @@ export default function ProjectEdit() {
           ]}
           hooks={{
             addImageBlobHook: async (blob, callback) => {
-              const url = await ImageUploader(blob)
-                .then((response) => response.data)
-                .then((data) => {
-                  const { public_id, format } = data;
-                  const url = `https://res.cloudinary.com/seongho-c/image/upload/w_400,c_fill,g_auto,q_auto:best/${public_id}.${format}`;
+              const response = await ImageUploader(blob);
 
-                  return url;
-                });
+              const { public_id, format } = response.data;
+              const url = `https://res.cloudinary.com/seongho-c/image/upload/w_400,c_fill,g_auto,q_auto:best/${public_id}.${format}`;
 
               callback(url, 'Image');
             },
