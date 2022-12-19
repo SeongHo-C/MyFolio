@@ -10,8 +10,8 @@ import { OauthContext } from '../../context/oauthContext';
 export default function Search() {
   const [type, setType] = useState('제목');
   const [open, setOpen] = useState(false);
-  const { getProjects } = useContext(projectsContext);
   const [tags, setTags] = useState('');
+  const { getProjects } = useContext(projectsContext);
   const { onRefresh } = useContext(OauthContext);
 
   const inputRef = useRef();
@@ -37,14 +37,11 @@ export default function Search() {
 
     if (TokenCheck()) onRefresh();
 
-    await instance
-      .get(`/tag?tagName=${keyword}`)
-      .then((response) => response.data)
-      .then((data) => {
-        if (data.length > 10) data = data.splice(0, 10);
+    const response = await instance.get(`/tag?tagName=${keyword}`);
 
-        setTags(data);
-      });
+    if (response.data.length > 10) response.data = response.data.splice(0, 10);
+
+    setTags(response.data);
   };
 
   const onClickTag = (tag) => {
