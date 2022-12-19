@@ -2,7 +2,6 @@ import React, { useCallback, useContext, useRef, useState } from 'react';
 import TagItem from '../../components/tagItem/tagItem';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
-
 import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
@@ -81,19 +80,16 @@ export default function ProjectCreate() {
   };
 
   const onImgChange = async (file) => {
-    setLoading(true);
-    onPreview(file);
-
     try {
-      await ImageUploader(file)
-        .then((response) => response.data)
-        .then((data) => {
-          const { public_id, format } = data;
-          const url = `https://res.cloudinary.com/seongho-c/image/upload/w_400,h_200,c_fill,g_auto,q_auto:best/${public_id}.${format}`;
+      setLoading(true);
+      onPreview(file);
+      const response = await ImageUploader(file);
 
-          setImgUrl(url);
-        })
-        .finally(() => setLoading(false));
+      const { public_id, format } = response.data;
+      const url = `https://res.cloudinary.com/seongho-c/image/upload/w_400,h_200,c_fill,g_auto,q_auto:best/${public_id}.${format}`;
+
+      setImgUrl(url);
+      setLoading(false);
     } catch (error) {
       console.log(`이미지 변경 error: ${error}`);
     }
@@ -122,7 +118,7 @@ export default function ProjectCreate() {
     onRegisterProject(data);
   };
 
-  const onRegisterProject = async (data) => {
+  const onRegisterProject = (data) => {
     const { title, content, thumbnailUrl, tags, summary } = data;
 
     if (!title) {
@@ -157,7 +153,7 @@ export default function ProjectCreate() {
     if (TokenCheck()) onRefresh();
 
     try {
-      await instance.post(`/project`, data).then(() => {
+      instance.post(`/project`, data).then(() => {
         alert('작성이 완료되었습니다.');
         navigate('/');
       });
@@ -205,6 +201,7 @@ export default function ProjectCreate() {
           ref={tagRef}
           type='text'
           name='tag'
+          maxLength={15}
           className={styles.input}
           onKeyDown={handleTagAdd}
         />
@@ -235,14 +232,10 @@ export default function ProjectCreate() {
           ]}
           hooks={{
             addImageBlobHook: async (blob, callback) => {
-              const url = await ImageUploader(blob)
-                .then((response) => response.data)
-                .then((data) => {
-                  const { public_id, format } = data;
-                  const url = `https://res.cloudinary.com/seongho-c/image/upload/w_400,c_fill,g_auto,q_auto:best/${public_id}.${format}`;
+              const response = await ImageUploader(blob);
 
-                  return url;
-                });
+              const { public_id, format } = response.data;
+              const url = `https://res.cloudinary.com/seongho-c/image/upload/w_400,c_fill,g_auto,q_auto:best/${public_id}.${format}`;
 
               callback(url, 'Image');
             },
