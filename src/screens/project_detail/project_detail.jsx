@@ -4,7 +4,6 @@ import { OauthContext } from '../../context/oauthContext';
 import { TokenCheck } from '../../service/token_check';
 import { BsGithub, BsGlobe } from 'react-icons/bs';
 import { Viewer } from '@toast-ui/react-editor';
-
 import styles from './project_detail.module.css';
 import instance from '../../service/interceptor';
 
@@ -20,13 +19,10 @@ export default function ProjectDetail() {
     if (TokenCheck()) onRefresh();
 
     try {
-      await instance
-        .get(`/project/${id}`)
-        .then((response) => response.data)
-        .then((data) => {
-          const modifiedDate = handleDate(new Date(data.modifiedDate));
-          setProject({ ...data, modifiedDate });
-        });
+      const response = await instance.get(`/project/${id}`);
+      const modifiedDate = handleDate(new Date(response.data.modifiedDate));
+
+      setProject({ ...response.data, modifiedDate });
     } catch (error) {
       console.log(error);
     }
@@ -48,7 +44,7 @@ export default function ProjectDetail() {
     );
   };
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
     const result = window.confirm(
       '이 포트폴리오를 완전히 삭제합니다. 계속 하시겠습니까?'
     );
@@ -57,7 +53,7 @@ export default function ProjectDetail() {
       if (TokenCheck()) onRefresh();
 
       try {
-        await instance.delete(`/project/${id}`).then(() => {
+        instance.delete(`/project/${id}`).then(() => {
           alert('삭제 완료되었습니다.');
           navigate('/');
         });
